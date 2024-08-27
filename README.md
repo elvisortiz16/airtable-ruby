@@ -115,10 +115,18 @@ Records can be inserted using the `create` method on a table:
 ### Updating Records
 
 Records can be updated using the `update` method on a table:
-
+PUT will perform a destructive update and clear all unspecified cell values.
 ```ruby
 @record[:email] = "sarahjaine@updated.com"
 @table.update(record)
+# => #<Airtable::Record :name=>"", :email=>"sarahjaine@updated.com", :id=>"rec03sKOVIzU65eV4">
+```
+
+Records can be updated using the `update_record_fields` method on a table:
+PATCH only update the fields you specify, leaving the rest as they were
+```ruby
+@single_record_update = {email: "sarahjaine@updated.com"}
+@table.update_record_fields(record.id, @single_record_update)
 # => #<Airtable::Record :name=>"Sarah Jaine", :email=>"sarahjaine@updated.com", :id=>"rec03sKOVIzU65eV4">
 ```
 
